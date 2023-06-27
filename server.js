@@ -14,10 +14,6 @@ const server = express()
 const io = socketIO(server);
 
 io.on('connection', (socket) => {
-  socket.on('print', ($data) => {
-    io.emit(`print device ${$data.id}`, $data)
-  })
-
   socket.on('emit', ($data) => {
     io.emit($data.namespace, ($data.data || []))
   })
