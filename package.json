@@ -1,6 +1,9 @@
 {
   "name": "socketioha",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.x"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,9 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "4.18.2",
-    "socket.io": "4.7.3",
-    "cors": "2.8.5"
+    "express": "4.16.4",
+    "socket.io": "2.1.1"
   },
   "packageManager": "pnpm@9.0.5"
 }
