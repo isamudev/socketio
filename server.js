@@ -14,8 +14,14 @@ const server = express()
 const io = socketIO(server, {
   cors: {
     origin: function (origin, callback) {
-      callback(null, origin);
+      if (!origin) {
+        callback(null, origin);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
     },
+    methods: ["GET", "POST"],
+    credentials: true,
   }
 });
 
