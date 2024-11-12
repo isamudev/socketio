@@ -13,7 +13,9 @@ const server = express()
 
 const io = socketIO(server, {
   cors: {
-    origin: "*",
+    origin: function (origin, callback) {
+      callback(null, origin);
+    },
   }
 });
 
