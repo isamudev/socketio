@@ -1,48 +1,27 @@
-'use strict';
+"use strict";
 
-const express  = require('express');
-const socketIO = require('socket.io');
-const path     = require('path');
-const cors = require('cors');
+const express = require("express");
+const socketIO = require("socket.io");
+const path = require("path");
+const cors = require("cors");
 
-const PORT  = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, 'index.html');
+const PORT = process.env.PORT || 3000;
+const INDEX = path.join(__dirname, "index.html");
 
 const app = express();
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-
-    callback(null, true);
-  },
-  credentials: true,
-}));
-
 const server = app
   .use((req, res) => res.sendFile(INDEX))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-const io = socketIO(server, {
-  cors: {
-    origin: function (origin, callback) {
-      if (!origin) {
-        callback(null, origin);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    methods: ["GET", "POST"],
-    credentials: true,
-  }
-});
+const io = socketIO(server, {});
 
-io.on('connection', (socket) => {
-  socket.on('emit', ($data) => {
-    if ($data.namespace && $data.namespace !== 'emit') {
-      io.emit($data.namespace, ($data.data || []))
+io.on("connection", (socket) => {
+  socket.on("emit", ($data) => {
+    if ($data.namespace && $data.namespace !== "emit") {
+      io.emit($data.namespace, $data.data || []);
     }
-  })
+  });
 });
 
 // setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
